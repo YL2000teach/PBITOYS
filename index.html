@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power Query & Power BI | חנות הצעצועים Play Story</title>
+<style>
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,"Noto Sans Hebrew",sans-serif;background:#f4f7fb;color:#263547;line-height:1.7}
+.page{min-height:100vh;background:#f4f7fb;padding-bottom:60px}
+.hero{padding:50px 24px 36px;text-align:center;background:linear-gradient(180deg,#eaf2ff 0%,#f4f7fb 100%);border-bottom:1px solid #d9e4f1}
+.kicker{font-size:.9rem;letter-spacing:.12em;color:#3578c8;font-weight:700}
+h1{margin:8px 0 4px;font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.05;font-weight:800;color:#20344e}
+.rule{width:min(580px,80%);height:4px;margin:22px auto 16px;background:#4a90e2;border-radius:999px}
+.subtitle{color:#52677f;font-size:clamp(1rem,2vw,1.3rem)}
+.shell{width:min(1160px,calc(100% - 32px));margin:0 auto}
+.overview,.panel,.finish{background:#fff;border-radius:20px;box-shadow:0 8px 24px rgba(45,65,90,.09);border-top:5px solid #4a90e2}
+.overview{padding:25px 28px;margin:26px 0 18px}.overview h2{margin:0 0 6px;color:#263b52}
+.overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.overview-item{background:#f7f9fc;border:1px solid #e0e7ef;border-radius:12px;padding:12px 14px}
+.download-row{margin-top:18px;text-align:center}.download-btn{display:inline-block;background:#345b82;color:#fff;text-decoration:none;font-weight:700;border-radius:10px;padding:11px 18px;margin:4px}.download-btn:hover{background:#294c6d}
+.selfcheck-info{margin-top:16px;background:#edf8f2;border-right:4px solid #3b9466;border-radius:10px;padding:12px 14px;color:#345746}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;justify-content:center}.nav a{color:#315f91;text-decoration:none;border:1px solid #cad8e8;background:#fff;border-radius:999px;padding:7px 12px;font-size:.92rem}.nav a:hover{background:#eaf2ff}
+.panel{margin:18px 0;padding:30px 34px}.panel-title{border-bottom:1px solid #e5eaf0;padding-bottom:16px;margin-bottom:8px}.panel-title h2{margin:0;font-size:1.9rem;line-height:1.25;color:#25384f}
+.task{display:grid;grid-template-columns:1fr 48px;gap:18px;padding:22px 0;border-bottom:1px solid #edf0f4}.task:last-child{border-bottom:none}
+.task-num{background:#345b82;color:#fff;width:40px;height:40px;display:grid;place-items:center;border-radius:8px;font-weight:800;font-size:1.05rem;margin-top:3px}
+.task h3{margin:0 0 7px;color:#bd533f;font-size:1.22rem}.task p{margin:.35rem 0}
+.path{display:inline-block;direction:ltr;text-align:left;margin:7px 0;padding:5px 9px;background:#eef3f8;border:1px solid #d7e0ea;border-radius:7px;color:#334b65;font-family:Consolas,monospace;font-size:.9rem}
+.question{margin-top:14px;padding:14px 15px;background:#edf8f2;border-right:4px solid #3b9466;border-radius:10px}.question-title{color:#27734d;font-weight:700;margin-bottom:8px}
+.answer-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.answer-row input,.answer-row select{font:inherit;min-width:190px;max-width:100%;padding:8px 10px;border:1px solid #b9c8d6;border-radius:8px;background:#fff;color:#263547}.answer-row input[type=number]{direction:ltr;text-align:left}
+.check-btn{font:inherit;font-weight:700;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;background:#347a57;color:#fff}.check-btn:hover{background:#2d6c4c}
+.feedback{margin-top:9px;font-weight:700;min-height:1.4em}.feedback.ok{color:#287447}.feedback.no{color:#ad4539}.feedback.hint{color:#8b641d}
+.tip,.note{margin-top:12px;padding:11px 13px;border-radius:9px}.tip{background:#fff8e8;border-right:4px solid #e1ad45}.note{background:#eef5ff;border-right:4px solid #5b91cf}
+table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{border:1px solid #dfe5ec;padding:9px 10px;text-align:right}th{background:#eef3f8;color:#31465d}ul{margin:.45rem 0;padding-right:1.4rem}
+.finish{padding:28px 34px;margin-top:18px;border-top-color:#3b9466}.finish h2{margin-top:0;color:#263b52}.footer{color:#7b8795;text-align:center;font-size:.88rem;padding-top:24px}
+.shot{max-width:100%;border:1px solid #d7e0ea;border-radius:10px;margin:10px 0;box-shadow:0 4px 14px rgba(45,65,90,.1)}
+.small{font-size:.88rem;color:#5c6c7d}
+@media(max-width:900px){.overview-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.overview-grid{grid-template-columns:1fr}.panel{padding:24px 18px}.task{grid-template-columns:1fr 42px;gap:10px}.panel-title h2{font-size:1.45rem}.hero{padding-top:38px}.answer-row{align-items:stretch}.answer-row input,.answer-row select,.check-btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="hero">
+  <div class="kicker">POWER QUERY · POWER BI · DAX</div>
+  <h1>חנות הצעצועים Play Story</h1>
+  <div class="rule"></div>
+  <div class="subtitle">תרגיל מודרך | מקבלת נתונים ועד דשבורד מלא</div>
+</header>
+
+<main class="shell">
+<section class="overview">
+  <h2>לפני שמתחילים</h2>
+  <p>בתרגיל תתחברו לחמישה מקורות נתונים של רשת חנויות צעצועים, תבצעו ניקוי והתאמת טיפוסים, תוסיפו עמודות מחושבות, תבנו מודל נתונים עם קשרים ומדדי DAX, ולבסוף תרכיבו דשבורד מלא ב־Power BI.</p>
+  <div class="overview-grid">
+    <div class="overview-item"><b>מקורות נתונים:</b><br>Calendar · Inventory · Products · Sales · Stores</div>
+    <div class="overview-item"><b>גיליון לעיון:</b><br>טבלת השדות בהמשך העמוד</div>
+    <div class="overview-item"><b>כלים:</b><br>Power Query · Power BI Desktop · DAX</div>
+    <div class="overview-item"><b>הגשה:</b><br>קובץ PBIX</div>
+  </div>
+  <div class="download-row">
+    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=1kbDo-N7htJ6RQ5Neg_sJOqn1XnZTFc2R" target="_blank" rel="noopener">Calendar</a>
+    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=1g8l42WHzOs8fxizgQpNb7kBwKoKzfxm9" target="_blank" rel="noopener">Inventory</a>
+    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=1JgF7yNHQkd7rpbcHdac1TEOGiDDJGeOn" target="_blank" rel="noopener">Products</a>
+    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=1kkJhnLMcovMxvSGrCcGxsXgXApX-THMS" target="_blank" rel="noopener">Sales</a>
+    <a class="download-btn" href="https://drive.google.com/uc?export=download&id=1ksNfUJrv-GgPfmrYM4PjtIbqikzSoNnl" target="_blank" rel="noopener">Stores</a>
+  </div>
+  <div class="selfcheck-info"><b>בדיקה עצמית:</b> בשאלות המסומנות בירוק הזינו או בחרו תשובה ולחצו "בדיקה". התשובות אינן נשמרות ואינן נשלחות.</div>
+</section>
+
+<nav class="nav">
+  <a href="#a">קבלת נתונים ומבנה</a><a href="#b">Products</a><a href="#c">Stores</a>
+  <a href="#d">Calendar</a><a href="#e">Sales</a><a href="#f">מודל ומדדים</a>
+  <a href="#g">בניית הדשבורד</a><a href="#h">סיכום</a>
+</nav>
+
+<section class="panel" id="a">
+<div class="panel-title"><h2>חלק א · קבלת הנתונים והיכרות עם המבנה</h2></div>
+
+<div class="task"><div>
+<h3>התחברות לחמשת מקורות הנתונים</h3>
+<p>עבור כל אחד מהקבצים לחצו <b>Get Data → Web</b> והדביקו את הקישור המתאים (ראו כפתורי ההורדה למעלה). עבור כל קובץ שנו את שם השאילתה כך שנדע לזהות את הטבלה, ובחרו <b>Transform Data</b> — לא בטעינה ישירה (<span dir="ltr">Load</span>).</p>
+<table>
+<thead><tr><th>טבלה</th><th>שדה</th><th>תיאור</th><th>סוג נתון</th></tr></thead>
+<tbody>
+<tr><td>Products</td><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
+<tr><td>Products</td><td>Product_Name</td><td>Product name</td><td>טקסט</td></tr>
+<tr><td>Products</td><td>Product_Category</td><td>Product Category</td><td>טקסט</td></tr>
+<tr><td>Products</td><td>Product_Cost</td><td>Product cost ($USD)</td><td>מטבע</td></tr>
+<tr><td>Products</td><td>Product_Price</td><td>Product retail price ($USD)</td><td>מטבע</td></tr>
+<tr><td>Inventory</td><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
+<tr><td>Inventory</td><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
+<tr><td>Inventory</td><td>Stock_On_Hand</td><td>Stock quantity of the product in the store</td><td>מספר שלם</td></tr>
+<tr><td>Stores</td><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
+<tr><td>Stores</td><td>Store_Name</td><td>Store name</td><td>טקסט</td></tr>
+<tr><td>Stores</td><td>Store_City</td><td>City in Mexico where the store is located</td><td>טקסט</td></tr>
+<tr><td>Stores</td><td>Store_Location</td><td>Location in the city where the store is located</td><td>טקסט</td></tr>
+<tr><td>Stores</td><td>Store_Open_Date</td><td>Date when the store was opened</td><td>תאריך</td></tr>
+<tr><td>Sales</td><td>Sale_ID</td><td>Sale ID</td><td>מספר שלם</td></tr>
+<tr><td>Sales</td><td>Date</td><td>Date of the transaction</td><td>תאריך</td></tr>
+<tr><td>Sales</td><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
+<tr><td>Sales</td><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
+<tr><td>Sales</td><td>Units</td><td>Units sold</td><td>מספר שלם</td></tr>
+<tr><td>Calendar</td><td>Date</td><td>Calendar date</td><td>תאריך</td></tr>
+</tbody>
+</table>
+<div class="question">
+<div class="question-title">שאלה 1 · איזה שדה ישמש לקישור בין טבלת Sales לבין טבלת Products?</div>
+<div class="answer-row"><input id="q1" type="text" placeholder="שם השדה"><button class="check-btn" onclick="checkText('q1','fb1',['product_id'],'חפשו שדה שמופיע גם ב-Sales וגם ב-Products.')">בדיקה</button></div>
+<div id="fb1" class="feedback"></div>
+</div>
+<div class="question">
+<div class="question-title">שאלה 2 · איזה שדה ישמש לקישור בין טבלת Sales (וגם Inventory) לבין טבלת Stores?</div>
+<div class="answer-row"><input id="q2" type="text" placeholder="שם השדה"><button class="check-btn" onclick="checkText('q2','fb2',['store_id'],'חפשו שדה שמופיע בכל אחת מהטבלאות הללו.')">בדיקה</button></div>
+<div id="fb2" class="feedback"></div>
+</div>
+</div><div class="task-num">1</div></div>
+
+<div class="task"><div>
+<h3>בדיקת כותרות וטיפוסי נתונים</h3>
+<p>עבור כל שאילתה ודאו שהכותרות מופיעות כראוי ושסוג העמודה שזוהה תואם לנתון בפועל; אם לא — תקנו. בדקו את איכות ואפיון כל עמודה דרך <span dir="ltr">View → Column quality / Column distribution / Column profile</span>, ושימו לב שהתצוגה מתייחסת לכלל הנתונים ולא רק ל-1,000 השורות הראשונות.</p>
+<div class="tip"><b>שימו לב:</b> ליד תווית ה-Profiling יש כפתור קטן לבחירת "Column profiling based on entire data set" — ודאו שהוא מסומן לפני שאתם מסיקים מסקנות על איכות הנתונים.</div>
+</div><div class="task-num">2</div></div>
+</section>
+
+<section class="panel" id="b">
+<div class="panel-title"><h2>חלק ב · טבלת Products</h2></div>
+
+<div class="task"><div>
+<h3>התאמת טיפוסי נתונים</h3>
+<p>שנו את העמודות <b>Product_Cost</b> ו-<b>Product_Price</b> לסוג מטבע (<span dir="ltr">Currency</span>).</p>
+<div class="question">
+<div class="question-title">שאלה 3 · בשינוי הטיפוס של Product_Cost / Product_Price למטבע מתקבלת הודעת שגיאה. מדוע, וכיצד פותרים זאת?</div>
+<div class="answer-row">
+<select id="q3"><option value="">בחרו תשובה</option>
+<option value="a">Power Query מזהה את הערכים לפי לוקאל שונה משלנו — יש להשתמש ב"Change Type Using Locale" ולבחור לוקאל תואם</option>
+<option value="b">אי אפשר להמיר עמודת טקסט למטבע בשום מקרה</option>
+<option value="c">יש למחוק את סימן ה-$ מתוך שם העמודה קודם</option>
+<option value="d">צריך קודם למיין את העמודה מהקטן לגדול</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q3','fb3','a','נסו Transform → Data Type → Using Locale, ובחרו לוקאל שמתאים לפורמט המספרים במקור.')">בדיקה</button>
+</div><div id="fb3" class="feedback"></div>
+</div>
+</div><div class="task-num">3</div></div>
+
+<div class="task"><div>
+<h3>מפתח מזהה למוצר</h3>
+<p>שנו את <b>Product_ID</b> לסוג מספר שלם. מכיוון שמדובר במפתח מזהה של המוצר, ודאו באמצעות <span dir="ltr">View</span> שאין בו ערכים ריקים או כפולים.</p>
+<div class="question">
+<div class="question-title">שאלה 4 · מדוע חשוב במיוחד לוודא שאין ערכים ריקים או כפולים דווקא בעמודת Product_ID?</div>
+<div class="answer-row">
+<select id="q4"><option value="">בחרו תשובה</option>
+<option value="a">כי זהו מפתח מזהה (Primary Key) שדרכו מתחברות טבלת Sales ו-Inventory לטבלת Products — ריקים או כפילויות עלולים לגרום לשגיאות קישור ולניפוח תוצאות</option>
+<option value="b">כי עמודות מספריות חייבות להיות ממוינות</option>
+<option value="c">כי אחרת Power Query לא יאפשר לשמור את השאילתה</option>
+<option value="d">כי זה משפיע רק על העיצוב של העמודה</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q4','fb4','a','חשבו מה קורה ב-Merge / ביצירת Relationship כשהמפתח לא ייחודי.')">בדיקה</button>
+</div><div id="fb4" class="feedback"></div>
+</div>
+</div><div class="task-num">4</div></div>
+
+<div class="task"><div>
+<h3>מחיר בהנחה ורווח למוצר</h3>
+<p>החברה מציעה מחיר מכירה בהנחה של 15% ללקוחות שמבצעים קניות גדולות. הוסיפו לטבלת Products עמודה מותאמת אישית (<span dir="ltr">Add Column → Custom Column</span>):</p>
+<div class="path">Discount_Price = [Product_Price] * 0.85</div>
+<p>לאחר מכן הוסיפו עמודת רווח למוצר:</p>
+<div class="path">Profit = [Product_Price] - [Product_Cost]</div>
+<p>שנו את הפורמט של שתי העמודות ל-$, והזיזו את עמודת Profit למקומה מיד לאחר Product_Price.</p>
+<div class="question">
+<div class="question-title">שאלה 5 · מה ההבדל המהותי בין עמודת Discount_Price לבין עמודת Profit?</div>
+<div class="answer-row">
+<select id="q5"><option value="">בחרו תשובה</option>
+<option value="a">Discount_Price היא מחיר מכירה חדש ללקוח (נגזר ממחיר המכירה בלבד); Profit הוא הרווח ליחידה, ההפרש בין מחיר המכירה לעלות המוצר</option>
+<option value="b">שתי העמודות מחשבות בדיוק את אותו הדבר בשתי דרכים שונות</option>
+<option value="c">Discount_Price משתמש בעלות המוצר ו-Profit במחיר המכירה בלבד</option>
+<option value="d">אין הבדל — ההבדל היחיד הוא הפורמט (אחוזים מול $)</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q5','fb5','a','בדקו אילו עמודות מקור משתתפות בכל חישוב.')">בדיקה</button>
+</div><div id="fb5" class="feedback"></div>
+</div>
+</div><div class="task-num">5</div></div>
+</section>
+
+<section class="panel" id="c">
+<div class="panel-title"><h2>חלק ג · טבלת Stores</h2></div>
+
+<div class="task"><div>
+<h3>ניקוי שם החנות</h3>
+<p>בעמודת <b>Store_Name</b> מופיעה בכל שם חנות הקידומת "<span dir="ltr">Maven</span>". הסירו אותה כך שיישאר רק שם החנות עצמו.</p>
+<div class="question">
+<div class="question-title">שאלה 6 · איזו פעולה ב-Power Query מתאימה ביותר להסרת קידומת קבועה כמו "Maven " מכל הערכים בעמודה?</div>
+<div class="answer-row">
+<select id="q6"><option value="">בחרו תשובה</option>
+<option value="a">Replace Values — החלפת "Maven " במחרוזת ריקה</option>
+<option value="b">Group By לפי שם החנות</option>
+<option value="c">Change Type ל-Text</option>
+<option value="d">Merge Queries עם טבלת Products</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q6','fb6','a','חפשו פעולה תחת Transform שמחליפה טקסט קבוע בטקסט אחר בכל שורות העמודה.')">בדיקה</button>
+</div><div id="fb6" class="feedback"></div>
+</div>
+</div><div class="task-num">6</div></div>
+</section>
+
+<section class="panel" id="d">
+<div class="panel-title"><h2>חלק ד · טבלת Calendar</h2></div>
+
+<div class="task"><div>
+<h3>תיקון פורמט התאריך</h3>
+<p>נסו לשנות את סוג העמודה <b>Date</b> לתאריך — Power Query יזרוק שגיאה.</p>
+<div class="question">
+<div class="question-title">שאלה 7 · מדוע מתקבלת שגיאה בשינוי טיפוס העמודה Date לתאריך, וכיצד פותרים זאת?</div>
+<div class="answer-row">
+<select id="q7"><option value="">בחרו תשובה</option>
+<option value="a">התאריכים כתובים בפורמט אמריקאי (חודש/יום/שנה); יש להשתמש ב"Change Type Using Locale" ולבחור English (United States)</option>
+<option value="b">העמודה ריקה ולכן אי אפשר לשנות את הטיפוס</option>
+<option value="c">יש למחוק את העמודה וליצור אותה מחדש מאפס</option>
+<option value="d">Power Query לא תומך בכלל בעמודות מסוג תאריך</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q7','fb7','a','שימו לב לסדר יום/חודש בערכי המקור לעומת הציפייה של הלוקאל המקומי.')">בדיקה</button>
+</div><div id="fb7" class="feedback"></div>
+</div>
+</div><div class="task-num">7</div></div>
+
+<div class="task"><div>
+<h3>הוספת עמודות נגזרות מהתאריך</h3>
+<p>לטבלת Calendar הוסיפו את העמודות הבאות: שם היום, מספר היום, שם החודש, מספר החודש, השנה והרבעון.</p>
+<div class="question">
+<div class="question-title">שאלה 8 · מאיזה תפריט ראשי מוסיפים בבת אחת עמודות נגזרות מתאריך כמו שם היום, מספר החודש והרבעון?</div>
+<div class="answer-row"><input id="q8" type="text" placeholder="שם התפריט"><button class="check-btn" onclick="checkText('q8','fb8',['addcolumn','addcolumn-date','addcolumndate'],'זהו תפריט שנמצא בסרגל העליון, ותחתיו יש תת-תפריט Date עם כל הבחירות הללו.')">בדיקה</button></div>
+<div id="fb8" class="feedback"></div>
+</div>
+</div><div class="task-num">8</div></div>
+</section>
+
+<section class="panel" id="e">
+<div class="panel-title"><h2>חלק ה · טבלת Sales</h2></div>
+
+<div class="task"><div>
+<h3>עמודה מותנית — Unit_Type</h3>
+<p>הוסיפו עמודה מותנית (<span dir="ltr">Add Column → Conditional Column</span>) בשם <b>Unit_Type</b>, לפי כמות היחידות שנקנו (Units):</p>
+<ul>
+<li>עד 1 יחידה (כולל) → <span dir="ltr">single</span></li>
+<li>מעל 1 ועד 10 יחידות (כולל) → <span dir="ltr">up to 10</span></li>
+<li>מעל 10 יחידות → <span dir="ltr">above 10</span></li>
+<li>בכל מקרה אחר → <span dir="ltr">other</span></li>
+</ul>
+<div class="question">
+<div class="question-title">שאלה 9 · מה יקרה אם נסדר את התנאים בסדר הפוך — כלומר קודם נבדוק "Units > 10 → above 10" ומיד אחריו "Units ≤ 10 → up to 10"?</div>
+<div class="answer-row">
+<select id="q9"><option value="">בחרו תשובה</option>
+<option value="a">שום דבר לא ישתנה — הסדר לא משפיע על עמודות מותנות</option>
+<option value="b">כל הערכים שהם 1 ומטה יסווגו כ"up to 10" במקום "single", כי הם עומדים גם בתנאי השני ברגע שלא נתפסו בראשון</option>
+<option value="c">הערכים מעל 10 יסווגו בטעות כ"single"</option>
+<option value="d">Power Query ימנע מאיתנו לשמור עמודה מותנית עם סדר כזה</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q9','fb9','b','עקבו אחרי ערך Units=1: באיזה תנאי הוא ייתפס ראשון בכל אחד מהסדרים?')">בדיקה</button>
+</div><div id="fb9" class="feedback"></div>
+</div>
+</div><div class="task-num">9</div></div>
+</section>
+
+<section class="panel" id="f">
+<div class="panel-title"><h2>חלק ו · מודל נתונים ומדדי DAX</h2></div>
+<div class="note"><b>תזכורת:</b> לאחר <span dir="ltr">Close &amp; Apply</span> עברו ל-<span dir="ltr">Model view</span> וודאו שנוצרו קשרים (Relationships) בין הטבלאות לפי מפתחות הזיהוי שמצאתם בחלק א.</div>
+
+<div class="task"><div>
+<h3>עמודות מחושבות בטבלת Sales</h3>
+<p>הוסיפו לטבלת Sales שתי עמודות מחושבות (DAX):</p>
+<div class="path">Total Order Revenue = Sales[Units] * RELATED(Products[Product_Price])</div><br>
+<div class="path">Total Order Cost = Sales[Units] * RELATED(Products[Product_Cost])</div>
+<div class="question">
+<div class="question-title">שאלה 10 · מדוע יש צורך בפונקציה RELATED כדי לחשב את Total Order Revenue, ולא ניתן פשוט להכפיל שתי עמודות מאותה טבלה?</div>
+<div class="answer-row">
+<select id="q10"><option value="">בחרו תשובה</option>
+<option value="a">כי Product_Price נמצא בטבלת Products ולא בטבלת Sales; RELATED מביא את הערך המתאים מהטבלה המקושרת לפי הקשר וה-ProductID של אותה שורה</option>
+<option value="b">כי אי אפשר ליצור עמודה מחושבת בטבלת Sales בכלל</option>
+<option value="c">כי RELATED היא הפונקציה היחידה שיודעת לבצע כפל ב-DAX</option>
+<option value="d">כי Units הוא טקסט ולא ניתן להכפילו</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q10','fb10','a','חשבו באיזו טבלה יושבת כל עמודה, ומה תפקידו של קשר (Relationship) בין טבלאות.')">בדיקה</button>
+</div><div id="fb10" class="feedback"></div>
+</div>
+</div><div class="task-num">10</div></div>
+
+<div class="task"><div>
+<h3>רשימת המדדים</h3>
+<p>צרו את המדדים (Measures) הבאים:</p>
+<div class="path">Total Revenue = SUM(Sales[Total Order Revenue])</div><br>
+<div class="path">Total Orders = COUNT(Sales[Sale_ID])</div><br>
+<div class="path">Total Cost = SUM(Sales[Total Order Cost])</div><br>
+<div class="path">Total Profit = [Total Revenue] - [Total Cost]</div><br>
+<div class="path">Profit % = [Total Profit] / [Total Revenue]</div><br>
+<div class="path">Total In Stock = SUM(Inventory[Stock_On_Hand])</div><br>
+<div class="path">Total Orders Above 10 = CALCULATE([Total Orders], Sales[Unit_Type] = "Above 10")</div><br>
+<div class="path">Total units Sold = SUM(Sales[Units])</div>
+<div class="question">
+<div class="question-title">שאלה 11 · מה ההבדל המרכזי בין עמודה מחושבת כמו Total Order Revenue לבין מדד (Measure) כמו Total Revenue?</div>
+<div class="answer-row">
+<select id="q11"><option value="">בחרו תשובה</option>
+<option value="a">עמודה מחושבת נשמרת בזיכרון עבור כל שורה ומחושבת פעם אחת ברענון; מדד מחושב "on the fly" לפי הקשר הסינון בדוח (סינונים, סלייסרים, ויזואלים) ואינו נשמר כשורה בטבלה</option>
+<option value="b">אין הבדל מהותי, זו רק שאלה של סגנון כתיבה</option>
+<option value="c">מדד תמיד מחזיר טקסט ועמודה מחושבת תמיד מחזירה מספר</option>
+<option value="d">עמודה מחושבת אפשרית רק בטבלת Products</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q11','fb11','a','חשבו מתי כל אחד מהם מחושב מחדש — ברענון הנתונים או בכל שינוי סינון בדוח.')">בדיקה</button>
+</div><div id="fb11" class="feedback"></div>
+</div>
+<div class="question">
+<div class="question-title">שאלה 12 · מדוע נדרש להשתמש ב-CALCULATE בתוך המדד Total Orders Above 10, ולא מספיק COUNT רגיל?</div>
+<div class="answer-row">
+<select id="q12"><option value="">בחרו תשובה</option>
+<option value="a">COUNT סופר את כל השורות שיש בהקשר הנוכחי; CALCULATE מאפשר להוסיף תנאי סינון נוסף (Unit_Type="Above 10") שמשנה את הקשר ומחשב את הספירה רק על השורות התואמות</option>
+<option value="b">CALCULATE משמש רק לשיפור ביצועים ואין לו השפעה על התוצאה</option>
+<option value="c">COUNT לא יכול לספור עמודה בשם Sale_ID</option>
+<option value="d">CALCULATE ו-COUNT זהים לחלוטין בתפקידם</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q12','fb12','a','חשבו מה קורה בלי CALCULATE — על אילו שורות היה נספר Total Orders.')">בדיקה</button>
+</div><div id="fb12" class="feedback"></div>
+</div>
+</div><div class="task-num">11</div></div>
+
+<div class="task"><div>
+<h3>מיקום הקשרים במודל</h3>
+<div class="question">
+<div class="question-title">שאלה 13 · באיזה חלון ב-Power BI Desktop יוצרים ובודקים את הקשרים (Relationships) בין הטבלאות?</div>
+<div class="answer-row">
+<select id="q13"><option value="">בחרו תשובה</option>
+<option value="powerquery">Power Query Editor</option>
+<option value="model">Model view</option>
+<option value="report">Report view</option>
+<option value="data">Data view</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q13','fb13','model','זהו החלון שבו רואים תרשים של כל הטבלאות עם קווי החיבור ביניהן.')">בדיקה</button>
+</div><div id="fb13" class="feedback"></div>
+</div>
+</div><div class="task-num">12</div></div>
+</section>
+
+<section class="panel" id="g">
+<div class="panel-title"><h2>חלק ז · בניית הדשבורד</h2></div>
+<p>בנו דוח בן 4 עמודים, עם שלושה סלייסרים משותפים בראש כל עמוד: <b>Year, Quarter, Month</b> · <b>Product Category, Product Name</b> · <b>Store City, Store Name</b>.</p>
+
+<div class="task"><div>
+<h3>עמוד 1 · סקירה כללית</h3>
+<p>חמישה כרטיסי KPI: Total Revenue, Total Profit, Profit %, Total Orders, Total units Sold. מתחתם: גרף קווי Revenue &amp; Profit לאורך זמן, גרף קווי Total Orders לאורך זמן, וגרף עמודות Revenue &amp; Profit לפי Product Category.</p>
+<img class="shot" src="dashboard_overview.png" alt="עמוד סקירה כללית - Play Story">
+<div class="question">
+<div class="question-title">שאלה 14 · איזה סוג ויזואל הכי מתאים לגרף Revenue &amp; Profit לפי Product Category שבתמונה?</div>
+<div class="answer-row">
+<select id="q14"><option value="">בחרו תשובה</option>
+<option value="bar">גרף עמודות (Column/Bar chart)</option>
+<option value="pie">תרשים עוגה (Pie chart)</option>
+<option value="card">כרטיס (Card)</option>
+<option value="table">טבלה בלבד</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q14','fb14','bar','הסתכלו בתמונה: כל קטגוריה מוצגת כזוג עמודות זו לצד זו.')">בדיקה</button>
+</div><div id="fb14" class="feedback"></div>
+</div>
+</div><div class="task-num">13</div></div>
+
+<div class="task"><div>
+<h3>עמוד 2 · ניתוח חודשי</h3>
+<p>בורר שנה בולט (2023), ארבעה כרטיסי KPI לפי חודש (Orders, Revenue, Profit, Units), שלושה גרפי Top 5 (לפי רווח, לפי הכנסה, לפי מספר הזמנות) וגרפי Small Multiples של הזמנות לפי קטגוריה וזמן.</p>
+<img class="shot" src="dashboard_monthly.png" alt="עמוד ניתוח חודשי - Play Story">
+</div><div class="task-num">14</div></div>
+
+<div class="task"><div>
+<h3>עמוד 3 · חנויות ומיקום</h3>
+<p>טבלה מפורטת לפי עיר (מספר חנויות, הזמנות, הכנסה, רווח, אחוז רווח) לצד מפה עם בועות המייצגות הכנסה לפי Store_City.</p>
+<img class="shot" src="dashboard_stores_map.png" alt="עמוד חנויות ומפה - Play Story">
+<div class="question">
+<div class="question-title">שאלה 15 · על סמך אילו שני שדות במודל מבוסס הוויזואל של המפה?</div>
+<div class="answer-row"><input id="q15" type="text" placeholder="שם השדה הראשון"><input id="q15b" type="text" placeholder="שם השדה השני"><button class="check-btn" onclick="checkQ15()">בדיקה</button></div>
+<div id="fb15" class="feedback"></div>
+</div>
+</div><div class="task-num">15</div></div>
+
+<div class="task"><div>
+<h3>עמוד 4 · מלאי</h3>
+<p>שני גרפי עמודות אופקיים: 10 המוצרים המובילים במלאי (Top 10 in Stock) ו-10 המוצרים הנמוכים ביותר במלאי (Bottom 10 in Stock).</p>
+<img class="shot" src="dashboard_stock.png" alt="עמוד מלאי - Play Story">
+<div class="question">
+<div class="question-title">שאלה 16 · מאיזו טבלה מגיע השדה שעליו מבוססים שני גרפי המלאי בעמוד זה?</div>
+<div class="answer-row">
+<select id="q16"><option value="">בחרו תשובה</option>
+<option value="inventory">Inventory (Stock_On_Hand)</option>
+<option value="sales">Sales (Units)</option>
+<option value="products">Products (Product_Price)</option>
+<option value="calendar">Calendar</option>
+</select>
+<button class="check-btn" onclick="checkChoice('q16','fb16','inventory','חפשו איפה מוגדרת כמות המלאי הקיימת של כל מוצר בכל חנות.')">בדיקה</button>
+</div><div id="fb16" class="feedback"></div>
+</div>
+</div><div class="task-num">16</div></div>
+</section>
+
+<section class="finish" id="h">
+<h2>סיום ושמירה</h2>
+<p>ודאו שקיימות כל השאילתות הבאות ללא שגיאות:</p>
+<ul><li>Calendar</li><li>Inventory</li><li>Products</li><li>Sales</li><li>Stores</li></ul>
+<p>ודאו שבמודל (Model view) מוגדרים הקשרים בין הטבלאות, ושכל שמונת המדדים מחלק ו' קיימים וללא שגיאות. ודאו שנבנו ארבעת עמודי הדשבורד כמתואר בחלק ז'.</p>
+<div class="path">Home → Close &amp; Apply</div>
+<p>שמרו את קובץ ה-PBIX בהתאם להנחיות ההגשה.</p>
+</section>
+
+<div class="footer">Power Query · Power BI · DAX · חנות הצעצועים Play Story</div>
+</main></div>
+
+<script>
+const attempts={};
+function setFeedback(id,type,text){const el=document.getElementById(id);el.className='feedback '+type;el.textContent=text}
+function wrongWithHint(fb,key,hint){attempts[key]=(attempts[key]||0)+1;if(attempts[key]===1){setFeedback(fb,'no','עדיין לא. נסו שוב.')}else{setFeedback(fb,'hint','לא בדיוק. רמז: '+hint)}}
+function normalizeText(v){return v.trim().toLowerCase().replace(/\s+/g,'')}
+function checkText(inputId,fbId,answers,hint){const raw=document.getElementById(inputId).value;if(!raw.trim()){setFeedback(fbId,'hint','הזינו תשובה לפני הבדיקה.');return}const v=normalizeText(raw);if(answers.map(normalizeText).includes(v)){setFeedback(fbId,'ok','✓ נכון!')}else{wrongWithHint(fbId,inputId,hint)}}
+function checkChoice(inputId,fbId,answer,hint){const v=document.getElementById(inputId).value;if(!v){setFeedback(fbId,'hint','בחרו תשובה לפני הבדיקה.');return}if(v===answer){setFeedback(fbId,'ok','✓ נכון!')}else{wrongWithHint(fbId,inputId,hint)}}
+function checkQ15(){const a=normalizeText(document.getElementById('q15').value);const b=normalizeText(document.getElementById('q15b').value);if(!a||!b){setFeedback('fb15','hint','מלאו את שני השדות.');return}const target=['storecity','totalrevenue'];const given=[a,b];const ok=target.every(t=>given.includes(t))||['storecity','revenue'].every(t=>given.includes(t));if(ok){setFeedback('fb15','ok','✓ נכון!')}else{wrongWithHint('fb15','q15','שדה גאוגרפי אחד ושדה מדד/כמות אחד — בדקו את כותרת הטבלה שלצד המפה.')}}
+</script>
+</body>
+</html>
