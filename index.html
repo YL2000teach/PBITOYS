@@ -62,10 +62,20 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
   <p>בתרגיל תתחברו לחמישה מקורות נתונים של רשת חנויות צעצועים, תבצעו ניקוי והתאמת טיפוסים, תוסיפו עמודות מחושבות, תבנו מודל נתונים עם קשרים ומדדי <span dir="ltr">DAX</span>, ולבסוף תרכיבו דשבורד מלא ב-<span dir="ltr">Power BI</span>.</p>
   <div class="overview-grid">
     <div class="overview-item"><b>מקורות נתונים:</b><br><span dir="ltr">Calendar · Inventory · Products · Sales · Stores</span></div>
-    <div class="overview-item"><b>גיליון לעיון:</b><br>טבלת השדות בהמשך העמוד</div>
+    <div class="overview-item"><b>גיליון לעיון:</b><br>טבלת השדות בתחילת כל חלק</div>
     <div class="overview-item"><b>כלים:</b><br><span dir="ltr">Power Query · Power BI Desktop · DAX</span></div>
     <div class="overview-item"><b>הגשה:</b><br>קובץ <span dir="ltr">PBIX</span></div>
   </div>
+  <table>
+  <thead><tr><th>קובץ</th><th>מה נמצא בו</th></tr></thead>
+  <tbody>
+  <tr><td>Calendar</td><td>טבלת תאריכים המשמשת לניתוח וסינון לפי זמן</td></tr>
+  <tr><td>Inventory</td><td>כמות המלאי הקיים (<span dir="ltr">Stock_On_Hand</span>) לכל מוצר בכל חנות</td></tr>
+  <tr><td>Products</td><td>פרטי המוצרים: שם, קטגוריה, עלות ומחיר מכירה</td></tr>
+  <tr><td>Sales</td><td>תיעוד עסקאות המכירה: תאריך, חנות, מוצר וכמות יחידות שנמכרו</td></tr>
+  <tr><td>Stores</td><td>פרטי החנויות: שם, עיר, מיקום ותאריך פתיחה</td></tr>
+  </tbody>
+  </table>
   <div class="note"><b>רוצים לראות איך זה נבנה בפועל?</b> אפשר להוריד את קובץ הדשבורד המוכן ולהציץ במבנה שלו: <a href="https://drive.google.com/file/d/1sZaEM_YpPXmmsUELbSVMyBy-14Zgh_F9/view?usp=drive_link" target="_blank" rel="noopener">קישור להורדת קובץ הדשבורד</a>. <b>חשוב:</b> אין לפתוח את הקובץ ישירות מתוך תצוגת <span dir="ltr">Drive</span> — יש להוריד אותו קודם למחשב, ורק לאחר מכן לפתוח אותו באמצעות <span dir="ltr">Power BI Desktop</span>.</div>
   <div class="selfcheck-info"><b>בדיקה עצמית:</b> בשאלות המסומנות בירוק הזינו או בחרו תשובה ולחצו "בדיקה". התשובות אינן נשמרות ואינן נשלחות.</div>
 </section>
@@ -89,30 +99,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
   <div class="source-item"><b>Sales</b><div class="path">https://drive.google.com/uc?export=download&amp;id=1kkJhnLMcovMxvSGrCcGxsXgXApX-THMS</div></div>
   <div class="source-item"><b>Stores</b><div class="path">https://drive.google.com/uc?export=download&amp;id=1ksNfUJrv-GgPfmrYM4PjtIbqikzSoNnl</div></div>
 </div>
-<table>
-<thead><tr><th>טבלה</th><th>שדה</th><th>תיאור</th><th>סוג נתון</th></tr></thead>
-<tbody>
-<tr><td>Products</td><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
-<tr><td>Products</td><td>Product_Name</td><td>Product name</td><td>טקסט</td></tr>
-<tr><td>Products</td><td>Product_Category</td><td>Product Category</td><td>טקסט</td></tr>
-<tr><td>Products</td><td>Product_Cost</td><td>Product cost ($USD)</td><td>מטבע</td></tr>
-<tr><td>Products</td><td>Product_Price</td><td>Product retail price ($USD)</td><td>מטבע</td></tr>
-<tr><td>Inventory</td><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
-<tr><td>Inventory</td><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
-<tr><td>Inventory</td><td>Stock_On_Hand</td><td>Stock quantity of the product in the store</td><td>מספר שלם</td></tr>
-<tr><td>Stores</td><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
-<tr><td>Stores</td><td>Store_Name</td><td>Store name</td><td>טקסט</td></tr>
-<tr><td>Stores</td><td>Store_City</td><td>City in Mexico where the store is located</td><td>טקסט</td></tr>
-<tr><td>Stores</td><td>Store_Location</td><td>Location in the city where the store is located</td><td>טקסט</td></tr>
-<tr><td>Stores</td><td>Store_Open_Date</td><td>Date when the store was opened</td><td>תאריך</td></tr>
-<tr><td>Sales</td><td>Sale_ID</td><td>Sale ID</td><td>מספר שלם</td></tr>
-<tr><td>Sales</td><td>Date</td><td>Date of the transaction</td><td>תאריך</td></tr>
-<tr><td>Sales</td><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
-<tr><td>Sales</td><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
-<tr><td>Sales</td><td>Units</td><td>Units sold</td><td>מספר שלם</td></tr>
-<tr><td>Calendar</td><td>Date</td><td>Calendar date</td><td>תאריך</td></tr>
-</tbody>
-</table>
+<div class="tip"><b>שימו לב:</b> ברוב המקרים <span dir="ltr">Power Query</span> יזהה לבד את שורת הכותרות (השלב <span dir="ltr">Promoted Headers</span>) ואת סוג הנתונים הראשוני של כל עמודה (השלב <span dir="ltr">Changed Type</span>) מיד עם החיבור. אם שורת הכותרות לא זוהתה נכון — אפשר לתקן זאת ידנית דרך <span dir="ltr">Transform → Use First Row as Headers</span>. בהמשך נעבור על כל טבלה ונוודא, ובמידת הצורך נתקן, את סוג הנתונים שזוהה.</div>
 <div class="question">
 <div class="question-title">שאלה 1 · איזה שדה ישמש לקישור בין טבלת <span dir="ltr">Sales</span> לבין טבלת <span dir="ltr">Products</span>?</div>
 <div class="answer-row"><input id="q1" type="text" placeholder="שם השדה"><button class="check-btn" onclick="checkText('q1','fb1',['product_id'],'חפשו שדה שמופיע גם בטבלת Sales וגם בטבלת Products.')">בדיקה</button></div>
@@ -126,8 +113,16 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 </div><div class="task-num">1</div></div>
 
 <div class="task"><div>
-<h3>בדיקת כותרות וטיפוסי נתונים</h3>
-<p>עבור כל שאילתה ודאו שהכותרות מופיעות כראוי ושסוג העמודה שזוהה תואם לנתון בפועל; אם לא — תקנו. בדקו את איכות ואפיון כל עמודה דרך <span dir="ltr">View → Column quality / Column distribution / Column profile</span>, ושימו לב שהתצוגה מתייחסת לכלל הנתונים ולא רק ל-1,000 השורות הראשונות.</p>
+<h3>בדיקת כותרות וטיפוסי נתונים · טבלת <span class="tbl-badge">Inventory</span></h3>
+<table>
+<thead><tr><th>שדה</th><th>תיאור</th><th>סוג נתון</th></tr></thead>
+<tbody>
+<tr><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
+<tr><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
+<tr><td>Stock_On_Hand</td><td>Stock quantity of the product in the store</td><td>מספר שלם</td></tr>
+</tbody>
+</table>
+<p>ודאו שהכותרות בשאילתת <span dir="ltr">Inventory</span> מופיעות כראוי ושסוג כל עמודה תואם לטבלה שלמעלה (מספר שלם בכל השדות); אם לא — תקנו. כך גם לגבי כל שאילתה אחרת: בדקו את איכות ואפיון כל עמודה דרך <span dir="ltr">View → Column quality / Column distribution / Column profile</span>, ושימו לב שהתצוגה מתייחסת לכלל הנתונים ולא רק ל-1,000 השורות הראשונות.</p>
 <div class="tip"><b>שימו לב:</b> ליד תווית ה-<span dir="ltr">Profiling</span> יש כפתור קטן לבחירת "<span dir="ltr">Column profiling based on entire data set</span>" — ודאו שהוא מסומן לפני שאתם מסיקים מסקנות על איכות הנתונים.</div>
 </div><div class="task-num">2</div></div>
 </section>
@@ -137,7 +132,17 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 
 <div class="task"><div>
 <h3>התאמת טיפוסי נתונים</h3>
-<p>שנו את העמודות <b>Product_Cost</b> ו-<b>Product_Price</b> לסוג מטבע (<span dir="ltr">Currency</span>).</p>
+<table>
+<thead><tr><th>שדה</th><th>תיאור</th><th>סוג נתון</th></tr></thead>
+<tbody>
+<tr><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
+<tr><td>Product_Name</td><td>Product name</td><td>טקסט</td></tr>
+<tr><td>Product_Category</td><td>Product Category</td><td>טקסט</td></tr>
+<tr><td>Product_Cost</td><td>Product cost ($USD)</td><td>מטבע</td></tr>
+<tr><td>Product_Price</td><td>Product retail price ($USD)</td><td>מטבע</td></tr>
+</tbody>
+</table>
+<p>ודאו שסוג הנתונים בכל עמודה תואם לטבלה שלמעלה. שנו את העמודות <b>Product_Cost</b> ו-<b>Product_Price</b> לסוג מטבע (<span dir="ltr">Currency</span>).</p>
 <div class="tip"><b>שימו לב:</b> בשינוי הטיפוס עשויה להתקבל הודעת שגיאה. הסיבה: הערכים בעמודה מגיעים כטקסט שכולל את סימן המטבע (<span dir="ltr">$</span>), ולכן <span dir="ltr">Power Query</span> מזהה את העמודה כטקסט ולא מצליח לפרש אותה כמספר. הפתרון: הסירו קודם את הסימן <span dir="ltr">$</span> מהעמודה (<span dir="ltr">Transform → Replace Values</span>, החלפת "<span dir="ltr">$</span>" במחרוזת ריקה), ורק לאחר מכן שנו את סוג העמודה למטבע (<span dir="ltr">Currency</span>).</div>
 </div><div class="task-num">3</div></div>
 
@@ -184,6 +189,21 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <div class="panel-title"><h2>חלק ג · טבלת <span class="tbl-badge">Stores</span></h2></div>
 
 <div class="task"><div>
+<h3>בדיקת סוגי נתונים</h3>
+<table>
+<thead><tr><th>שדה</th><th>תיאור</th><th>סוג נתון</th></tr></thead>
+<tbody>
+<tr><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
+<tr><td>Store_Name</td><td>Store name</td><td>טקסט</td></tr>
+<tr><td>Store_City</td><td>City in Mexico where the store is located</td><td>טקסט</td></tr>
+<tr><td>Store_Location</td><td>Location in the city where the store is located</td><td>טקסט</td></tr>
+<tr><td>Store_Open_Date</td><td>Date when the store was opened</td><td>תאריך</td></tr>
+</tbody>
+</table>
+<p>ודאו שסוג הנתונים בכל עמודה תואם לטבלה שלמעלה, ובפרט ש-<b>Store_Open_Date</b> מזוהה כתאריך. אם מתקבלת שגיאה — נסו את אותה שיטת פתרון שנלמד בהמשך בטבלת <span dir="ltr">Calendar</span> (<span dir="ltr">Using Locale</span>).</p>
+</div><div class="task-num">6</div></div>
+
+<div class="task"><div>
 <h3>ניקוי שם החנות</h3>
 <p>בעמודת <b>Store_Name</b> מופיעה בכל שם חנות הקידומת "<span dir="ltr">Maven</span>". הסירו אותה כך שיישאר רק שם החנות עצמו.</p>
 <div class="question">
@@ -198,7 +218,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <div class="answer-row"><button class="check-btn" onclick="checkMulti(['q5a','q5b','q5c','q5d','q5e'],['a','e'],'fb5','חשבו על כל הדרכים להסיר קידומת קבועה: גם החלפה ישירה וגם חילוץ הטקסט שאחרי הרווח מובילות לאותה תוצאה.')">בדיקה</button></div>
 <div id="fb5" class="feedback"></div>
 </div>
-</div><div class="task-num">6</div></div>
+</div><div class="task-num">7</div></div>
 </section>
 
 <section class="panel" id="d">
@@ -206,9 +226,15 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 
 <div class="task"><div>
 <h3>תיקון פורמט התאריך</h3>
-<p>נסו לשנות את סוג העמודה <b>Date</b> לתאריך — <span dir="ltr">Power Query</span> יזרוק שגיאה.</p>
+<table>
+<thead><tr><th>שדה</th><th>תיאור</th><th>סוג נתון</th></tr></thead>
+<tbody>
+<tr><td>Date</td><td>Calendar date</td><td>תאריך</td></tr>
+</tbody>
+</table>
+<p>ודאו שסוג הנתונים בעמודה תואם לטבלה שלמעלה. נסו לשנות את סוג העמודה <b>Date</b> לתאריך — <span dir="ltr">Power Query</span> יזרוק שגיאה.</p>
 <div class="tip"><b>שימו לב:</b> השגיאה מתקבלת מכיוון שהתאריכים בעמודה כתובים בפורמט אמריקאי (חודש/יום/שנה), בעוד שהלוקאל הכללי מצפה לפורמט אחר (למשל יום/חודש/שנה). הפתרון: <span dir="ltr">Transform → Data Type → Using Locale</span>, ולבחור <span dir="ltr">Date</span> יחד עם לוקאל <span dir="ltr">English (United States)</span> — כך <span dir="ltr">Power Query</span> יידע לפרש את סדר יום/חודש נכון.</div>
-</div><div class="task-num">7</div></div>
+</div><div class="task-num">8</div></div>
 
 <div class="task"><div>
 <h3>הוספת עמודות נגזרות מהתאריך</h3>
@@ -218,11 +244,26 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <div class="answer-row"><input id="q6" type="text" placeholder="שם התפריט"><button class="check-btn" onclick="checkText('q6','fb6',['addcolumn','addcolumn-date','addcolumndate'],'זהו תפריט שנמצא בסרגל העליון, ותחתיו יש תת-תפריט Date עם כל הבחירות הללו.')">בדיקה</button></div>
 <div id="fb6" class="feedback"></div>
 </div>
-</div><div class="task-num">8</div></div>
+</div><div class="task-num">9</div></div>
 </section>
 
 <section class="panel" id="e">
 <div class="panel-title"><h2>חלק ה · טבלת <span class="tbl-badge">Sales</span></h2></div>
+
+<div class="task"><div>
+<h3>בדיקת סוגי נתונים</h3>
+<table>
+<thead><tr><th>שדה</th><th>תיאור</th><th>סוג נתון</th></tr></thead>
+<tbody>
+<tr><td>Sale_ID</td><td>Sale ID</td><td>מספר שלם</td></tr>
+<tr><td>Date</td><td>Date of the transaction</td><td>תאריך</td></tr>
+<tr><td>Store_ID</td><td>Store ID</td><td>מספר שלם</td></tr>
+<tr><td>Product_ID</td><td>Product ID</td><td>מספר שלם</td></tr>
+<tr><td>Units</td><td>Units sold</td><td>מספר שלם</td></tr>
+</tbody>
+</table>
+<p>ודאו שסוג הנתונים בכל עמודה תואם לטבלה שלמעלה, ובפרט ש-<b>Date</b> מזוהה כתאריך. אם מתקבלת שגיאה — השתמשו באותה שיטת פתרון שנלמדה בטבלת <span dir="ltr">Calendar</span> (<span dir="ltr">Using Locale</span>).</p>
+</div><div class="task-num">10</div></div>
 
 <div class="task"><div>
 <h3>עמודה מותנית — <span dir="ltr">Unit_Type</span></h3>
@@ -245,7 +286,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <button class="check-btn" onclick="checkChoice('q7','fb7','b','עקבו אחרי ערך Units=1: באיזה תנאי הוא ייתפס ראשון בסדר החדש, והאם הוא בכלל יגיע לתנאי השלישי?')">בדיקה</button>
 </div><div id="fb7" class="feedback"></div>
 </div>
-</div><div class="task-num">9</div></div>
+</div><div class="task-num">11</div></div>
 </section>
 
 <section class="panel" id="f">
@@ -280,7 +321,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <button class="check-btn" onclick="checkChoice('q9','fb9','b','חשבו כמה קשרים פעילים בין אותו זוג טבלאות Power BI מאפשר בו-זמנית.')">בדיקה</button>
 </div><div id="fb9" class="feedback"></div>
 </div>
-</div><div class="task-num">10</div></div>
+</div><div class="task-num">12</div></div>
 
 <div class="task"><div>
 <h3>עמודות מחושבות בטבלת <span dir="ltr">Sales</span></h3>
@@ -299,7 +340,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <button class="check-btn" onclick="checkChoice('q10','fb10','a','חשבו באיזו טבלה יושבת כל עמודה, ומה תפקידו של קשר בין טבלאות.')">בדיקה</button>
 </div><div id="fb10" class="feedback"></div>
 </div>
-</div><div class="task-num">11</div></div>
+</div><div class="task-num">13</div></div>
 
 <div class="task"><div>
 <h3>רשימת המדדים</h3>
@@ -336,7 +377,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <button class="check-btn" onclick="checkChoice('q12','fb12','a','חשבו מה קורה בלי CALCULATE — על אילו שורות היה נספר Total Orders.')">בדיקה</button>
 </div><div id="fb12" class="feedback"></div>
 </div>
-</div><div class="task-num">12</div></div>
+</div><div class="task-num">14</div></div>
 
 <div class="task"><div>
 <h3>מיקום הקשרים במודל</h3>
@@ -352,7 +393,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <button class="check-btn" onclick="checkChoice('q13','fb13','model','זהו החלון שבו רואים תרשים של כל הטבלאות עם קווי החיבור ביניהן — כמו התרשים למעלה.')">בדיקה</button>
 </div><div id="fb13" class="feedback"></div>
 </div>
-</div><div class="task-num">13</div></div>
+</div><div class="task-num">15</div></div>
 </section>
 
 <section class="panel" id="g">
@@ -377,7 +418,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <button class="check-btn" onclick="checkChoice('q14','fb14','bar','הסתכלו בתמונה: כל קטגוריה מוצגת כזוג עמודות זו לצד זו.')">בדיקה</button>
 </div><div id="fb14" class="feedback"></div>
 </div>
-</div><div class="task-num">14</div></div>
+</div><div class="task-num">16</div></div>
 
 <div class="task"><div>
 <h3>עמוד 2 · ניתוח חודשי</h3>
@@ -386,7 +427,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <img class="shot" src="dashboard_monthly.png" alt="עמוד ניתוח חודשי - Play Story">
 <div class="note"><b>* KPI</b> — ויזואל שמאפשר לראות במבט אחד את הערך הנוכחי של המדד ואת הכיוון שבו הוא משתנה. שימו לב: כדי לראות את המגמה ההיסטורית יש להגדיר את שדה ה-<span dir="ltr">Trend Axis</span> בחלונית ההגדרות של הוויזואל.</div>
 <div class="note"><b>** Small Multiples</b> — מאפשר להשוות בין כמה קטגוריות בבירור, במקום לדחוס את כולן לגרף אחד עמוס. גוררים לתכונה זו את השדה שלפיו רוצים לפצל את הגרף לעותקים נפרדים — אחד לכל ערך בשדה.</div>
-</div><div class="task-num">15</div></div>
+</div><div class="task-num">17</div></div>
 
 <div class="task"><div>
 <h3>עמוד 3 · חנויות ומיקום</h3>
@@ -413,7 +454,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <button class="check-btn" onclick="checkPair('q15a','q15b',['storecity','totalrevenue'],'fb15','שדה אחד קובע את המיקום הגאוגרפי, ושדה שני (מדד) קובע את גודל הבועה — בדקו את כותרת הטבלה שלצד המפה.')">בדיקה</button>
 </div><div id="fb15" class="feedback"></div>
 </div>
-</div><div class="task-num">16</div></div>
+</div><div class="task-num">18</div></div>
 
 <div class="task"><div>
 <h3>עמוד 4 · מלאי</h3>
@@ -431,7 +472,7 @@ table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}th,td{bo
 <button class="check-btn" onclick="checkChoice('q16','fb16','inventory','חפשו איפה מוגדרת כמות המלאי הקיימת של כל מוצר בכל חנות.')">בדיקה</button>
 </div><div id="fb16" class="feedback"></div>
 </div>
-</div><div class="task-num">17</div></div>
+</div><div class="task-num">19</div></div>
 </section>
 
 <section class="finish" id="h">
